@@ -1,0 +1,223 @@
+#%RAML 1.0
+title: emp_sapi
+baseUri: http://localhost:8081/emp_sapi
+/create_employee:
+  description: this resourse is used to register an employee
+  post:
+    body:
+      application/json:
+        type: object
+        properties:
+          emp_id:
+            required: true
+            type: integer
+            example: 4326
+          emp_name:
+            required: true
+            type: string
+            example: "mabish"
+          emp_org:
+            required: true
+            type: string
+            example: "capg"
+        example:
+          {
+            "emp_id":101,
+            "emp_name":"mabish chowdary",
+            "emp_org":"capg"
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                required: true
+                type: integer
+                example: 200 
+              message:
+                required: true
+                type: string
+                example: "successfull"
+            example:
+              {
+                "status":200,
+                "message":"successfully deployed"
+              }
+      500:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                required: true
+                type: integer
+                example: 500
+              message:
+                required: true
+                type: string
+                example: "internal server error"
+            example:
+              {
+                "status":500,
+                "message":"internal server error"
+              }
+
+/update_emp:
+  put:
+    description: "updating the employee details"
+    body:
+      application/xml:
+        type: object
+        xml:
+          name: emp
+        properties:
+            emp_id:
+              type: integer
+              required: true
+              example: 101
+            emp_org:
+              required: true
+              type: string
+              example:
+                value: "capgemini"
+        example:
+            <emp>
+            <emp_id>101</emp_id>
+            <emp_org>capgemini</emp_org>
+            </emp>
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: integer
+                required: true
+                example: 200
+              message:
+                type: string
+                required: true
+                example: "successfully updated"
+            example:
+              {
+                "status": 200,
+                "message": "successfully uploaded"
+              }
+      501:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: integer
+                required: true
+                example: 500
+              message:
+                type: string
+                required: true
+                example: "NOT updated"
+            example:
+              {
+                "status": 500,
+                "message": "NOT uploaded"
+              }
+/get_emp:
+  get:
+    queryParameters:
+      emp_id:
+        type: integer
+        required: false
+        example: 101
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                required: true
+                type: integer
+                example: 200 
+              message:
+                required: true
+                type: string
+                example: "successfull"
+            example:
+              {
+                "status":200,
+                "message":"successfully deployed"
+              }
+      500:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                type: integer
+                required: true
+                example: 500
+              message:
+                type: string
+                required: true
+                example: "NOT updated"
+            example:
+              {
+                "status": 500,
+                "message": "NOT DETAILS to GET"
+              }
+/delete_emp/{emp_id}:
+  delete:
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              status:
+                required: true
+                type: integer
+                example: 200 
+              message:
+                required: true
+                type: string
+                example: "successfull"
+            example:
+              {
+                "status":200,
+                "message":"successfully deleted"
+              }
+      500:
+        body:
+          !include /response/error.raml
+        
+            
+          
+
+          
+              
+
+                  
+
+    
+          
+      
+
+          
+
+          
+
+
+          
+              
+          
+
+
+
+              
+
+              
+        
+    
